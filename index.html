@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale:0.25, maximum-scale:1.6, user-scalable=yes;" />
+	<meta name="author" content="Gordon Mei" />
+	<title>Brevity - Studio Gordon Mei - Labs</title>
+	<style type="text/css">
+		* {margin:0; padding:0; font:normal 14pt "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue","Helvetica","Arial",sans-serif; font-weight:300;}	
+		body {margin:2em 5em;}
+		a:link, a:visited, a:focus, a:active {color:#009aff;}
+		a:hover {color:#ff5c80; text-decoration:line-through;}
+		textarea {display:block; margin:0.5em 0; padding:0.3em; width:16em; height:5em; background:url("../../formfieldbkgd.gif") no-repeat scroll top left transparent; border-radius:0.5em; -moz-border-radius:0.5em; -webkit-border-radius:0.5em;}
+		textarea:focus {outline:0;}
+		input[type="submit"], input[type="button"] {margin:0; padding:0.3em 0.7em; border:1px solid #cfd6d9; border-radius:20px; -moz-border-radius:20px; -webkit-border-radius:20px; background-color:#fff; background:-webkit-gradient(linear, left top, left bottom, from(#fff), to(#e3e7ef)) !important; background:-moz-linear-gradient(top, #fff, #fff, #e3e7ef) !important; text-shadow: #fff 0 1px 0;}
+		input[type="submit"]:hover, input[type="button"]:hover {cursor:pointer; background-color:#eee; background:-webkit-gradient(linear, left top, left bottom, from(#fff), to(#fff), color-stop(0.5, #e3e7ef)) !important; background:-moz-linear-gradient(top, #fff, #e3e7ef, #fff) !important;}
+		input[disabled] {color:#ccc;}
+		#sosumi {margin:1em 0; font-size:10pt;}
+		#sosumi a {font-size:10pt;}
+		
+		@media only screen and (max-device-width:480px) {body {margin:1em 0.3em;}}
+	</style>
+	<!--<link media="only screen and (max-device-width:480px)" href="eyefone.css" type="text/css" rel="stylesheet" />-->
+	<link rel="shortcut icon" href="../../favico.png" type="image/png" />
+</head>
+<body>
+
+	<div id="countdowntext">Your limit is 50 characters.</div>	
+	<textarea id="texting"></textarea>
+	<input type="submit" id="buttonsubmit" value="Defuse" />
+	<div id="sosumi">2010. <a href="http://www.monstercyb.org/gordon/lab">Monstercyb.org</a>. A part of the <a href="http://www.ocf.berkeley.edu/~gordeon">GordeonBleu</a> network.</div>
+	
+	<script type="text/javascript">
+	(function() {
+		
+		var textyarea = document.getElementById("texting");
+		
+		function updateCount(ceiling) {
+			
+			var btnsubmit = document.getElementById("buttonsubmit");
+			var countdown = document.getElementById("countdowntext");
+			//var textyarea = document.getElementById("texting");
+			
+			var len = textyarea.value.length;
+
+			if (len <= ceiling && btnsubmit.getAttribute("disabled")) {
+				//Deleting characters from above limit, back to within limit.			
+				btnsubmit.removeAttribute("disabled");
+				countdown.innerHTML = "Remaining: " + (ceiling-len);
+				countdown.style.color="#000";
+				if (len == ceiling) {countdown.style.color="#cc7b21";}
+			}									
+			else if (len <= ceiling) {
+				//Within limit			
+				countdown.innerHTML = "Remaining: " + (ceiling-len);
+				countdown.style.color="#000"
+				if (len > ceiling-20) {countdown.style.color="#cc7b21";}
+			}
+			else if (len > ceiling) {
+				//Above limit			
+				countdown.innerHTML = "You hit your limit of " + ceiling + " by " + Math.abs(ceiling-len) + " characters.";
+				btnsubmit.setAttribute("disabled", "disabled");
+				countdown.style.color="#c00";
+			}
+			
+		}
+
+		if (textyarea.addEventListener) {
+			textyarea.addEventListener("keyup", function(){updateCount(50)}, false);
+		}
+		else if (textyarea.attachEvent) {
+			textyarea.attachEvent("onkeyup", function(){updateCount(50)});
+		}
+
+		
+	})();
+	</script>
+
+	<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+	try {
+	var pageTracker = _gat._getTracker("UA-299058-9");
+	pageTracker._trackPageview();
+	} catch(err) {}</script>
+
+<!--2010 March 4-->
+</body>
+</html>
